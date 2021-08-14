@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+<style>
+    body{
+        display:flex;
+        justify-content:center;
+    }
+    .container{
+        border-radius:15px;
+        width:499px;
+        height:468px;
+    }
+    #main-result{
+        background-color:#00fff2;
+        border-top-right-radius:13px;
+        border-top-left-radius:13px;
+        width:497px;
+        height:80px;
+        font-size: 50px;
+        text-align: end;
+        border: 1px solid #00fff2;
+    }
+    #result{margin-top: 20px;}
+    #numpad{
+        margin-top:0;
+        width:300px;
+        height:398px;
+    }
+    #signpad{
+        width: 199px;
+        height: 395px;
+        float: right;
+    }
+    .nums{
+        background-color:#66ff00;
+        border: 1px solid #00fff2;
+        text-align: center;
+        height: 25.1%;
+        width: 100px;
+        font-size: xx-large;
+        padding-top: 10px;
+        padding-bottom: 0;
+    }
+    #num-9{float: right;}
+    #num-8{float: right;}
+    #num-6{float: right;}
+    #num-5{float: right;}
+    #num-3{float: right;}
+    #num-2{float: right;}
+    #num-c{float: right;}
+    #num-0{float: right;}
+    #num{border-bottom-left-radius:13px;}
+    #par1{float: right;}
+    #mult{float: right;}
+    #minus{float: right;}
+    #equal{width:100%;border-bottom-right-radius:15px;font-size:50px;}
+
+    .sign{
+        text-align:center;
+        height:25.3%;
+        width:50%;
+        font-size:xx-large;
+        padding-top:10px;
+        background-color:#66ff00;
+        /* border-radius: px; */
+        border: 1px solid #00fff2;
+    }
+
+    .nums:hover, .sign:hover{background-color:#208800;}
+    .nums:active, .sign:active{background-color:#d40000;}
+</style>
+</head>
+<body>
+
+
+    <div class="container">
+        <div id="main-result">
+            <p id="result">0</p> 
+        </div>
+        <div id="signpad">
+            <button class="sign" id="par1" onclick="par(')')">)</button>
+            <button class="sign" id="par2" onclick="par('(')">(</button>
+            <button class="sign" id="mult" onclick="symbol('*')"><i class="bi bi-asterisk"></i></button>
+            <button class="sign" id="divi" onclick="symbol('/')"><i class="bi bi-slash-lg"></i></button>
+            <button class="sign" id="minus" onclick="symbol('-')"><i class="bi bi-dash-lg"></i></button>
+            <button class="sign" id="plus" onclick="symbol('+')"><i class="bi bi-plus-lg"></i></button>
+            <button class="sign" id="equal" onclick="results()">=</button>
+        </div>
+
+        <div id="numpad">
+            <button class="nums" id="num-9" onclick="numbers(9)">9</button>
+            <button class="nums" id="num-8" onclick="numbers(8)">8</button>
+            <button class="nums" id="num-7" onclick="numbers(7)">7</button>
+            <button class="nums" id="num-6" onclick="numbers(6)">6</button>
+            <button class="nums" id="num-5" onclick="numbers(5)">5</button>
+            <button class="nums" id="num-4" onclick="numbers(4)">4</button>
+            <button class="nums" id="num-3" onclick="numbers(3)">3</button>
+            <button class="nums" id="num-2" onclick="numbers(2)">2</button>
+            <button class="nums" id="num-1" onclick="numbers(1)">1</button>
+            <button class="nums" id="num-c" onclick="backSpace()">
+                <i class="bi bi-backspace"></i></button>
+            <button class="nums" id="num-0" onclick="numbers(0)">0</button>
+            <button class="nums" id="num" onclick="clean()">C</i></button>
+        </div>
+    </div>
+
+<script>
+    function clean(){document.getElementById('result').innerText=0;}
+
+    function results(){
+        text = document.getElementById('result').innerText;
+        let len = text.length;
+        let last =text[len-1];
+        if(last==")"){
+            symbol('+');
+            let text = document.getElementById('result').innerText;
+            document.getElementById('result').innerText = text.slice(0,text.length-1);
+        }else{
+            let res = maths(text);
+            document.getElementById('result').innerText = res;
+
+        }
+    }
+    function numbers(number){
+        result = document.getElementById('result').innerText;
+        last = result[result.length-1];
+        if (result=="0"){
+            document.getElementById('result').innerText = number;
+        }
+        else if(last==")"){
+               document.getElementById('result').innerText = document.getElementById('result').innerText;
+        }else {
+            document.getElementById('result').innerText+= number;
+        }
+    }
+
+    function backSpace(){
+        text = document.getElementById('result').innerText;
+        if(text.length===1){
+            document.getElementById('result').innerText="0"
+        }else{
+            document.getElementById('result').innerText= text.slice(0,text.length-1)
+        }
+    }
+
+    function symbol(sym){
+        let len, last,first,pos,res,m=false;
+        text = document.getElementById('result').innerText;
+        len = text.length;
+        last = text[len-1];
+        if(text[0]=="-"){m=true;}
+        if(last=="+" || last=="-" || last=="/" || last=="*"){
+            document.getElementById('result').innerText = text.slice(0,len-1)+sym;
+        }else if(last=="("){
+            document.getElementById('result').innerText= document.getElementById('result').innerText; 
+        }
+        else if (!text.includes("(")){
+            if(text.includes("+")){
+                pos = text.indexOf("+");
+                first = parseFloat(text.slice(0,pos));
+                last = parseFloat(text.slice(pos+1,len));
+                document.getElementById('result').innerText= String(first+last) + sym;
+            }
+            else if (text.includes("-")){
+                pos = text.indexOf("-");
+                if(m){text2 = text.slice(1,len)
+                    pos = text2.indexOf("-")+1;}
+                first = parseFloat(text.slice(0,pos));
+                last = parseFloat(text.slice(pos+1,len));
+                document.getElementById('result').innerText= String(first-last) + sym;
+            }
+            else if(text.includes("/")){
+                pos = text.indexOf("/");
+                first =parseFloat(text.slice(0,pos));
+                last = parseFloat(text.slice(pos+1,len));
+                document.getElementById('result').innerText= String((first/last).toFixed(2)) + sym;
+            }
+            else if(text.includes("*")){
+                pos = text.indexOf("*");
+                first = parseFloat(text.slice(0,pos));
+                last = parseFloat(text.slice(pos+1,len));
+                document.getElementById('result').innerText= String(first*last) + sym;
+            }
+            else{document.getElementById('result').innerText+=sym;}
+        }
+        else{
+            if(last==")"){
+                pos1 = text.indexOf("(");
+                math = text.slice(pos1+1,len-1);
+                first = text.slice(0,pos1);
+                res = String(maths(math));
+                math = first + res;
+                res = String(maths(math));
+                document.getElementById('result').innerText = res + sym;
+            }else{document.getElementById('result').innerText+=sym;}
+        }
+    }
+
+    function par(p){
+        text = document.getElementById('result').innerText;
+        len = text.length
+        last =text[len-1]
+        if(p=="("){
+            if((last=="+" || last=="-" || last=="/" || last=="*") && !text.includes("(")){
+                document.getElementById('result').innerText+=p
+            }
+        }
+        else{
+            if(last!="+" && last!="-" && last!="/" && last!="*" && last!="(" && last!=")" && text.includes("(")){
+                document.getElementById('result').innerText+=p
+            }
+        }
+    }
+
+    function maths(math){
+        let first,mathList,p,num,last;
+        mathList = []
+        p=0;
+        num=''
+        while(p<math.length){
+            if(math[p]!="+" && math[p]!="-" && math[p]!="/" && math[p]!="*"){
+                num+=math[p]
+            }else{
+                mathList.push(num);
+                num='';
+                mathList.push(math[p]);
+            }
+            p++
+        }
+        mathList.push(num);
+
+        if(mathList.includes("*")){
+            for(i=0; i<mathList.length;i++){
+                if(mathList[i]==="*"){
+                    last = parseFloat(mathList[i+1])
+                    last.toFixed(2);
+                    delete mathList[i+1]
+                    delete mathList[i];
+                    first = parseFloat(mathList[i-1])
+                    first.toFixed(2);
+                    mathList[i-1]= first *last;
+                    mathList = mathList.flat();
+                }
+            }
+        }
+        if(mathList.includes("/")){
+            for(i=1; i<mathList.length-1;i++){
+                if(mathList[i]=="/"){
+                    last = parseFloat(mathList[i+1])
+                    last.toFixed(2);
+                    delete mathList[i+1]
+                    delete mathList[i];
+                    first = parseFloat(mathList[i-1])
+                    first.toFixed(2);
+                    mathList[i-1]= first/last;
+                    mathList = mathList.flat();
+                }
+            }
+        }
+        if(mathList.includes("+")){
+            for(i=1; i<mathList.length-1;i++){
+                if(mathList[i]=="+"){
+                    last = parseFloat(mathList[i+1])
+                    last.toFixed(2);
+                    delete mathList[i+1]
+                    delete mathList[i];
+                    first = parseFloat(mathList[i-1])
+                    first.toFixed(2);
+                    mathList[i-1]= first+last;
+                    mathList = mathList.flat();
+                }
+
+            }
+        }
+        if(mathList.includes("-")){
+            for(i=1; i<mathList.length-1;i++){
+                if(mathList[i]=="-"){
+                    last = parseFloat(mathList[i+1])
+                    last.toFixed(2);
+                    delete mathList[i+1]
+                    delete mathList[i];
+                    first = parseFloat(mathList[i-1])
+                    first.toFixed(2);
+                    mathList[i-1]= first-last;
+                    mathList = mathList.flat();
+                }
+            }
+        }
+        return mathList[0].toFixed(2);
+    }
+
+</script>
+<!-- All rights reserved © Bill Tsol -->
+</body>
+</html>
