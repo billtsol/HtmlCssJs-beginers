@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+body{
+    background-image: url('../background.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;   
+    margin: 0;
+    font-family: 'Anton', sans-serif;
+}
+.container{
+    text-align: center;
+    display: flex;
+    margin-top: 200px;
+    height: 340px;
+    width: 90%;
+    font-size:1550%;
+    margin-left: 5%;
+}
+@media (max-width:1600px) {
+    .container{
+        text-align: center;
+        display: flex;
+        margin-top: 200px;
+        height: 260px;
+        width: 90%;
+        font-size:1200%;
+        margin-left: 5%;
+    }
+}
+@media (max-width:1200px) {
+    .container{
+        text-align: center;
+        display: flex;
+        margin-top: 200px;
+        height: 200px;
+        width: 90%;
+        font-size:900%;
+        margin-left: 5%;
+    }
+}
+
+@media (max-width:900px) {
+    .container{
+        text-align: center;
+        display: flex;
+        margin-top: 200px;
+        height: 160px;
+        width: 90%;
+        font-size:700%;
+        margin-left: 5%;
+    }
+}
+@media (max-width:768px) {
+    .container{
+        text-align: center;
+        display: flex;
+        margin-top: 200px;
+        height: 100px;
+        width: 90%;
+        font-size:400%;
+        margin-left: 5%;
+    }
+}   
+@media (max-width:495px) {
+    .container{
+        text-align: center;
+        display: flex;
+        margin-top: 200px;
+        height: 80px;
+        width: 90%;
+        font-size:350%;
+        margin-left: 5%;
+    }
+}
+.dot{color:#BCC6CC;}
+.text{
+    border: 2px solid black;
+    color: #BCC6CC;
+    border-radius: 5px;
+    z-index: 999;
+    mask-border-mode:unset ;
+    background-color: rgba(19, 16, 16, 0.856);
+    margin: 1px 8px;
+    height: 100%;
+    width: 15%;
+    box-shadow: 0px 0px 10px 6px rgba(0, 0, 0, 0.89);
+}
+#sec{animation:flip 1s infinite;}
+@keyframes flip {
+    0% {
+        opacity: 1;
+        transform: rotateX(0deg);
+    }  
+    50% {
+        opacity: 0;
+        transform: rotateX(-90deg);
+    }
+}

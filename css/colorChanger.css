@@ -1,0 +1,10 @@
+.container{
+    display:flex;
+    color:white;
+    font-size:large;
+}
+.box{
+    text-align:center;
+    width: 33.33%;
+}
+input{width:80%;}
