@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/RockPaperScissors.css">
+</head>
+<body>
+    <p>ROCK PAPER SCISSOR</p>
+    <div class="container">
+
+        <div class="board">
+            <div class="title" id="player">You: <span id="scoreP"> 0</span> </div>
+                <i class="fas fa-hand-rock" id="rockP"></i>
+                <i class="fas fa-hand-paper" id="paperP"></i>
+                <i class="fas fa-hand-scissors" id="scissorsP"></i>
+        </div>
+        <div class="board comput">
+            <div class="title" id="computer">Computer: <span id="scoreC"> 0</span> </div>  
+            <i class="fas fa-hand-rock play" id="rockC"></i>
+            <i class="fas fa-hand-paper play" id="paperC"></i>
+            <i class="fas fa-hand-scissors play" id="scissorsC"></i>
+        </div>
+
+    </div>
+
+    <div class="choice">
+            <button class="icon fas fa-hand-rock" onclick="play('rock')"></button>
+            <button class="icon fas fa-hand-paper" onclick="play('paper')"></button>
+            <button class="icon fas fa-hand-scissors" onclick="play('scissors')"></button>
+    </div>
+<script src="./js/RockPaperScissors.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+<!-- All rights reserved © Bill Tsol -->
+</body>
+</html>
